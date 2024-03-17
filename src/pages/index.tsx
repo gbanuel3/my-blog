@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <Box textAlign="center" fontSize="xl" p={5}>
-      <Text>Welcome to your Chakra + Next.js project!</Text>
+      <Text>Welcome to your Chakra + Next.js project! Test Deployment!</Text>
       <Button onClick={toggleColorMode} mt={4}>
         Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
       </Button>
