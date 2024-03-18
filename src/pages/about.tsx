@@ -4,7 +4,7 @@ import { Box, Container, Heading, Text, Image, VStack } from '@chakra-ui/react'
 const About = () => {
   return (
     <Container maxW="container.lg" py={10}>
-      <VStack spacing={10} alignItems="flex-start">
+      <VStack spacing={10} alignItems="center">
         <Heading as="h1" size="2xl">
           About Us
         </Heading>

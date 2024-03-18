@@ -12,7 +12,7 @@ const navItems = [
   { url: '/about', icon: <FaUser />, label: 'About' },
   { url: '/blog', icon: <FaPen />, label: 'Blog' },
   { url: '/projects', icon: <FaProjectDiagram />, label: 'Projects' },
-  { url: '/github', icon: <FaGithub />, label: 'GitHub' },
+  { url: 'https://github.com/gbanuel3', icon: <FaGithub />, label: 'GitHub' },
 ]
 
 function NavigationBar() {
@@ -37,6 +37,7 @@ function NavigationBar() {
       padding="1rem"
       bg={colors[colorMode].bg_color}
       color={colorMode === 'light' ? 'black' : 'white'}
+      mt={'5px'}
     >
       {/* Navigation Links */}
       <Flex align="center" mr={5} gap={'5px'}>
@@ -47,6 +48,7 @@ function NavigationBar() {
             text={item.label}
             href={item.url}
             isActive={router.pathname === item.url}
+            target={item.label === 'GitHub' ? '_blank' : undefined}
           />
         ))}
       </Flex>
