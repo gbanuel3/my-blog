@@ -43,6 +43,8 @@ const routerMap : any = {
   '/about': { icon: <FaUser />, label: 'About' },
   '/blog': { icon: <FaPen />, label: 'Blog' },
   '/projects': { icon: <FaProjectDiagram />, label: 'Projects' },
+  '/404': { icon: null, label: null},
+  '/500': { icon: null, label: null}
 }
 
 function NavigationBar() {
