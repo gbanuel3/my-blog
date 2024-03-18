@@ -1,31 +1,52 @@
-import { Box, Button, Text, useColorMode, Flex, Heading, Image, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Text,
+  useColorMode,
+  Flex,
+  Heading,
+  Image,
+  VStack,
+  useBreakpointValue,
+  Stack,
+  StackDirection,
+} from '@chakra-ui/react'
 import { colors } from '@/constants'
 
 function Header() {
   const { colorMode, toggleColorMode } = useColorMode()
+  const stackDirection = useBreakpointValue<'column' | 'row'>({
+    base: 'column',
+    md: 'row',
+  })
+  const isBaseLayout = useBreakpointValue({ base: true, md: false });
   return (
-    <Flex
+    <Stack
+      direction={stackDirection} // Stack direction changes based on breakpoint
       bg={colors[colorMode].bg_color}
-      p={{ base: 4, md: 8 }} // Padding responsive values
-      align="center" // Vertically center the contents
-      justify="space-between" // Spread the child components
+      p={{ base: 4, md: 8 }}
+      align="center"
+      spacing={4} // Adjust spacing between items in the stack
     >
-      <Box>
+      <Image
+        src="/climber.png"
+        boxSize={{ base: '150px', md: '200px' }} // Adjust the image size responsively
+        objectFit="cover"
+        alt="Rock Climbing"
+        order={isBaseLayout ? 0 : 1}
+      />
+      <Box textAlign={{ base: 'center', md: 'left' }}>
         <Heading as="h1" size="2xl" mb={2} color={colors[colorMode].header_text}>
           Welcome, I&#39;m Gil
         </Heading>
-        <Text fontSize="2xl" color={colors[colorMode].text_color}>
-          Recent Computer Science graduate and aspiring Software Engineer. I&#39;ve created this space to document my post-grad journey and to share my various hobbies! 
+        <Text fontSize="xl" color={colors[colorMode].text_color}>
+          Recent Computer Science graduate and aspiring Software Engineer. I&#39;ve
+          created this space to document my post-grad journey and to share my various
+          hobbies!
         </Text>
       </Box>
-      <Image
-        src="/climber.png" // Replace with the path to your illustration
-        htmlWidth="200px" // Set the width of the illustration
-        htmlHeight="auto" // Keep the aspect ratio of the illustration
-        alt="Rock Climbing"
-      />
-    </Flex>
-  );
+    </Stack>
+  )
 }
 
 export default function Home() {

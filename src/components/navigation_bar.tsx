@@ -1,31 +1,56 @@
 import React from 'react'
-import { Flex, IconButton, useColorMode, Box } from '@chakra-ui/react'
-import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import {
+  Flex,
+  IconButton,
+  useColorMode,
+  Box,
+  useBreakpointValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+} from '@chakra-ui/react'
+import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { colors } from '@/constants'
 import { FaHome, FaUser, FaPen, FaProjectDiagram, FaGithub } from 'react-icons/fa'
 import NavigationBarButton from './navigation_bar_button'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { Url } from 'next/dist/shared/lib/router/router'
+import DropdownMenuItem from './dropdown_menu_item'
 
 const navItems = [
-  { url: '/', icon: <FaHome />, label: 'Home' },
-  { url: '/about', icon: <FaUser />, label: 'About' },
-  { url: '/blog', icon: <FaPen />, label: 'Blog' },
-  { url: '/projects', icon: <FaProjectDiagram />, label: 'Projects' },
-  { url: 'https://github.com/gbanuel3', icon: <FaGithub />, label: 'GitHub' },
+  { url: '/', icon: <FaHome />, label: 'Home', isExternal: false },
+  { url: '/about', icon: <FaUser />, label: 'About', isExternal: false },
+  { url: '/blog', icon: <FaPen />, label: 'Blog', isExternal: false },
+  {
+    url: '/projects',
+    icon: <FaProjectDiagram />,
+    label: 'Projects',
+    isExternal: false,
+  },
+  {
+    url: 'https://github.com/gbanuel3',
+    icon: <FaGithub />,
+    label: 'GitHub',
+    isExternal: true,
+  },
 ]
 
 function NavigationBar() {
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
-  const [hasMounted, setHasMounted] = useState(false)
+  const [selectedItem, setSelectedItem] = useState({ label: 'Menu', icon: <HamburgerIcon /> });
+  const isMobile = useBreakpointValue({ base: true, md: false })
 
-  useEffect(() => {
-    setHasMounted(true)
-  }, [])
-
-  if (!hasMounted) {
-    return <div style={{ width: '48px', height: '48px' }} />
+  const handleNavItemClick = (item: any, isExternal = false) => {
+    setSelectedItem({label: item.label, icon: item.icon})
+    if (isExternal) {
+      window.open(item.url, '_blank')
+    } else {
+      router.push(item.url)
+    }
   }
 
   return (
@@ -33,39 +58,56 @@ function NavigationBar() {
       as="nav"
       align="center"
       justify="space-between"
-      wrap="wrap"
       padding="1rem"
       bg={colors[colorMode].bg_color}
       color={colorMode === 'light' ? 'black' : 'white'}
       mt={'5px'}
     >
-      {/* Navigation Links */}
-      <Flex align="center" mr={5} gap={'5px'}>
-        {navItems.map((item) => (
-          <NavigationBarButton
-            key={item.label}
-            icon={item.icon}
-            text={item.label}
-            href={item.url}
-            isActive={router.pathname === item.url}
-            target={item.label === 'GitHub' ? '_blank' : undefined}
-          />
-        ))}
-      </Flex>
+      {isMobile ? (
+        <Menu>
+          <MenuButton
+            as={Button}
+            leftIcon={selectedItem.icon}
+            variant="outline"
+          >
+            {selectedItem.label}
+          </MenuButton>
+          <MenuList bg={colors[colorMode].bg_color}>
+            {navItems.map((item) => (
+              <DropdownMenuItem
+                icon={item.icon}
+                text={item.label}
+                href={item.url}
+                onClick={() => handleNavItemClick(item, item.isExternal)}
+              />
+            ))}
+          </MenuList>
+        </Menu>
+      ) : (
+        <Flex align="center" gap={'2px'}>
+          {navItems.map((item) => (
+            <NavigationBarButton
+              icon={item.icon}
+              text={item.label}
+              href={item.url}
+              isActive={router.pathname === item.url}
+              onClick={() => handleNavItemClick(item, item.isExternal)}
+            />
+          ))}
+        </Flex>
+      )}
 
-      {/* Color Mode Button */}
-      <Box>
-        <IconButton
-          size="md"
-          fontSize="lg"
-          aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
-          variant="ghost"
-          color="current"
-          ml="2"
-          onClick={toggleColorMode}
-          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-        />
-      </Box>
+      <IconButton
+        size="md"
+        fontSize="lg"
+        aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
+        variant="ghost"
+        color="current"
+        ml="2"
+        mr="4"
+        onClick={toggleColorMode}
+        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+      />
     </Flex>
   )
 }
