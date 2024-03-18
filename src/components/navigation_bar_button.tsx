@@ -9,14 +9,16 @@ type NavigationBarButtonProps = {
   text: string
   href: string
   isActive?: boolean
+  target: any
 }
 
-function NavigationBarButton({ icon, text, href, isActive }: NavigationBarButtonProps) {
+function NavigationBarButton({ icon, text, href, isActive, target }: NavigationBarButtonProps) {
   const { colorMode, toggleColorMode } = useColorMode()
   const activeBg = colors[colorMode].btn_active_bg
   const inactiveBg = 'transparent'
   const activeText = colors[colorMode].btn_active_text
   const hoverColor = isActive ? activeBg : colors[colorMode].btn_hover
+
   return (
     <Button
       as={Link}
@@ -36,6 +38,8 @@ function NavigationBarButton({ icon, text, href, isActive }: NavigationBarButton
       _active={{
         bg: colors[colorMode].btn_active_bg,
       }}
+      target={target}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
     >
       <a>{text}</a>
     </Button>
