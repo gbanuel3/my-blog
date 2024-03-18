@@ -22,11 +22,10 @@ import DropdownMenuItem from './dropdown_menu_item'
 
 function getRouteItem(url: string) {
   const defaultItem = {
-    icon: <FaHome />, // Default icon
-    label: 'Not Found', // Default label
+    icon: <FaHome />,
+    label: 'Not Found',
   };
 
-  // Attempt to get the item from the router map, or return the default item
   return routerMap[url] || defaultItem;
 }
 
