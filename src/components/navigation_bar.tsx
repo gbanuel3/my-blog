@@ -82,6 +82,7 @@ function NavigationBar() {
           <MenuList bg={colors[colorMode].bg_color}>
             {navItems.map((item) => (
               <DropdownMenuItem
+                key={item.label}
                 icon={item.icon}
                 text={item.label}
                 href={item.url}
@@ -94,6 +95,7 @@ function NavigationBar() {
         <Flex align="center" gap={'2px'}>
           {navItems.map((item) => (
             <NavigationBarButton
+              key={item.label}
               icon={item.icon}
               text={item.label}
               href={item.url}

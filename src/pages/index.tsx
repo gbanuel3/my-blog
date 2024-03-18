@@ -12,6 +12,8 @@ import {
   StackDirection,
 } from '@chakra-ui/react'
 import { colors } from '@/constants'
+import Head from 'next/head'
+
 
 function Header() {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -53,8 +55,13 @@ export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <VStack fontSize="xl" p={5} bg={colors[colorMode].bg_color}>
-      <Header />
-    </VStack>
+    <>
+      <Head>
+        <title>Gil Banuelos</title>
+      </Head>
+      <VStack fontSize="xl" p={5} bg={colors[colorMode].bg_color}>
+        <Header />
+      </VStack>
+    </>
   )
 }
