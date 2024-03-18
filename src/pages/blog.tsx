@@ -11,6 +11,7 @@ import {
   useColorMode
 } from '@chakra-ui/react'
 import { colors } from '@/constants'
+import Head from 'next/head'
 
 const Blog = () => {
     const { colorMode, toggleColorMode } = useColorMode()
@@ -18,6 +19,10 @@ const Blog = () => {
   const textColor = useColorModeValue('gray.800', 'gray.100')
 
   return (
+    <>
+    <Head>
+      <title>Blog | Gil</title>
+    </Head>
     <Container maxW="container.lg" p={4} bg={colors[colorMode].bg_color}>
       <VStack spacing={8} alignItems="center" w="full">
         <Heading as="h1" size="xl" mb={4}>
@@ -37,6 +42,7 @@ const Blog = () => {
         ))}
       </VStack>
     </Container>
+    </>
   )
 }
 

@@ -11,6 +11,7 @@ import {
   useColorMode
 } from '@chakra-ui/react'
 import { colors } from '@/constants'
+import Head from 'next/head'
 
 const ProjectsPage = () => {
     const { colorMode, toggleColorMode } = useColorMode()
@@ -18,6 +19,10 @@ const ProjectsPage = () => {
   const textColor = useColorModeValue('gray.800', 'gray.100')
 
   return (
+    <>
+    <Head>
+      <title>Projects | Gil</title>
+    </Head>
     <Container maxW="container.lg" p={4} bg={colors[colorMode].bg_color}>
       <VStack spacing={8} alignItems="center" w="full">
         <Heading as="h1" size="xl" mb={4}>
@@ -50,6 +55,7 @@ const ProjectsPage = () => {
         </SimpleGrid>
       </VStack>
     </Container>
+    </>
   )
 }
 

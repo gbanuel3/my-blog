@@ -1,8 +1,13 @@
 import React from 'react'
 import { Box, Container, Heading, Text, Image, VStack } from '@chakra-ui/react'
+import Head from 'next/head'
 
 const About = () => {
   return (
+    <>
+    <Head>
+      <title>About | Gil</title>
+    </Head>
     <Container maxW="container.lg" py={10}>
       <VStack spacing={10} alignItems="center">
         <Heading as="h1" size="2xl">
@@ -27,6 +32,7 @@ const About = () => {
         </Text>
       </VStack>
     </Container>
+    </>
   )
 }
 
