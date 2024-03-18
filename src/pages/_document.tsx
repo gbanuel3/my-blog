@@ -33,7 +33,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>Gil Banuelos</title>
         </Head>
         <body>
           <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
