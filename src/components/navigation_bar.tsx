@@ -38,17 +38,28 @@ const navItems = [
   },
 ]
 
+const routerMap : any = {
+  '/': { icon: <FaHome />, label: 'Home' },
+  '/about': { icon: <FaUser />, label: 'About' },
+  '/blog': { icon: <FaPen />, label: 'Blog' },
+  '/projects': { icon: <FaProjectDiagram />, label: 'Projects' },
+}
+
 function NavigationBar() {
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
-  const [selectedItem, setSelectedItem] = useState({ label: 'Menu', icon: <HamburgerIcon /> });
+  const [selectedItem, setSelectedItem] = useState({
+    label: routerMap[router.pathname].label,
+    icon: routerMap[router.pathname].icon,
+  })
   const isMobile = useBreakpointValue({ base: true, md: false })
 
-  const handleNavItemClick = (item: any, isExternal = false) => {
-    setSelectedItem({label: item.label, icon: item.icon})
+  const handleNavItemClick = (event : any, item: any, isExternal = false) => {
+    event.preventDefault()
     if (isExternal) {
       window.open(item.url, '_blank')
     } else {
+      setSelectedItem({ label: item.label, icon: item.icon })
       router.push(item.url)
     }
   }
@@ -65,11 +76,7 @@ function NavigationBar() {
     >
       {isMobile ? (
         <Menu>
-          <MenuButton
-            as={Button}
-            leftIcon={selectedItem.icon}
-            variant="outline"
-          >
+          <MenuButton as={Button} leftIcon={selectedItem.icon} variant="outline">
             {selectedItem.label}
           </MenuButton>
           <MenuList bg={colors[colorMode].bg_color}>
@@ -78,7 +85,7 @@ function NavigationBar() {
                 icon={item.icon}
                 text={item.label}
                 href={item.url}
-                onClick={() => handleNavItemClick(item, item.isExternal)}
+                onClick={(event : any) => handleNavItemClick(event, item, item.isExternal)}
               />
             ))}
           </MenuList>
@@ -91,7 +98,7 @@ function NavigationBar() {
               text={item.label}
               href={item.url}
               isActive={router.pathname === item.url}
-              onClick={() => handleNavItemClick(item, item.isExternal)}
+              onClick={(event : any) => handleNavItemClick(event, item, item.isExternal)}
             />
           ))}
         </Flex>
