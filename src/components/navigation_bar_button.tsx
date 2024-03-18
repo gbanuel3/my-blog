@@ -27,6 +27,7 @@ function NavigationBarButton({ icon, text, href, isActive }: NavigationBarButton
       px="4"
       py="2"
       fontSize="md"
+      color={colors[colorMode].btn_text}
       bg={isActive ? activeBg : inactiveBg}
       _hover={{
         bg: hoverColor,

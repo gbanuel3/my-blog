@@ -39,7 +39,7 @@ function NavigationBar() {
       color={colorMode === 'light' ? 'black' : 'white'}
     >
       {/* Navigation Links */}
-      <Flex align="center" mr={5}>
+      <Flex align="center" mr={5} gap={'5px'}>
         {navItems.map((item) => (
           <NavigationBarButton
             key={item.label}
