@@ -20,6 +20,16 @@ import { useRouter } from 'next/router'
 import { Url } from 'next/dist/shared/lib/router/router'
 import DropdownMenuItem from './dropdown_menu_item'
 
+function getRouteItem(url: string) {
+  const defaultItem = {
+    icon: <FaHome />, // Default icon
+    label: 'Not Found', // Default label
+  };
+
+  // Attempt to get the item from the router map, or return the default item
+  return routerMap[url] || defaultItem;
+}
+
 const navItems = [
   { url: '/', icon: <FaHome />, label: 'Home', isExternal: false },
   { url: '/about', icon: <FaUser />, label: 'About', isExternal: false },
@@ -43,16 +53,14 @@ const routerMap : any = {
   '/about': { icon: <FaUser />, label: 'About' },
   '/blog': { icon: <FaPen />, label: 'Blog' },
   '/projects': { icon: <FaProjectDiagram />, label: 'Projects' },
-  '/404': { icon: null, label: null},
-  '/500': { icon: null, label: null}
 }
 
 function NavigationBar() {
   const router = useRouter()
   const { colorMode, toggleColorMode } = useColorMode()
   const [selectedItem, setSelectedItem] = useState({
-    label: routerMap[router.pathname].label,
-    icon: routerMap[router.pathname].icon,
+    label: getRouteItem(router.pathname).label,
+    icon: getRouteItem(router.pathname).icon,
   })
   const isMobile = useBreakpointValue({ base: true, md: false })
 
