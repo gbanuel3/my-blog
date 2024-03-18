@@ -1,6 +1,8 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, VStack, ColorModeScript } from '@chakra-ui/react'
 import { ComponentType } from 'react'
-import GlobalStyle from '@/styles/GlobalStyle'
+import GlobalStyle from '@/styles/global_style'
+import Theme from '@/styles/theme'
+import NavigationBar from '@/components/navigation_bar'
 
 function MyApp({
   Component,
@@ -10,8 +12,10 @@ function MyApp({
   pageProps: any
 }) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={Theme}>
+      <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
       <GlobalStyle />
+      <NavigationBar />
       <Component {...pageProps} />
     </ChakraProvider>
   )
