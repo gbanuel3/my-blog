@@ -1,3 +1,4 @@
+require('dotenv').config()
 import {
   Box,
   Button,
@@ -11,9 +12,9 @@ import {
   Stack,
   StackDirection,
 } from '@chakra-ui/react'
-import { colors } from '@/constants'
+import { colors, endpoint } from '@/constants'
 import Head from 'next/head'
-
+import { useEffect, useState } from 'react'
 
 function Header() {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -21,7 +22,7 @@ function Header() {
     base: 'column',
     md: 'row',
   })
-  const isBaseLayout = useBreakpointValue({ base: true, md: false });
+  const isBaseLayout = useBreakpointValue({ base: true, md: false })
   return (
     <Stack
       direction={stackDirection} // Stack direction changes based on breakpoint
@@ -51,6 +52,39 @@ function Header() {
   )
 }
 
+function LatestPosts() {
+  const [user, setUser] = useState(null)
+  const userId = 1
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            query GetUser($id: Int!) {
+              getUser(id: $id) {
+                id
+                name
+                email
+              }
+            }
+          `,
+          variables: { id: userId },
+        }),
+      })
+
+      const { data } = await response.json()
+      setUser(data.getUser)
+    }
+
+    fetchData()
+  }, [userId])
+
+  return <></>
+}
+
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode()
 
@@ -61,6 +95,7 @@ export default function Home() {
       </Head>
       <VStack fontSize="xl" p={5} bg={colors[colorMode].bg_color}>
         <Header />
+        <LatestPosts />
       </VStack>
     </>
   )

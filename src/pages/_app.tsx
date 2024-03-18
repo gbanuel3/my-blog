@@ -1,9 +1,4 @@
-import {
-  ChakraProvider,
-  VStack,
-  ColorModeScript,
-  Container,
-} from '@chakra-ui/react'
+import { ChakraProvider, VStack, ColorModeScript, Container } from '@chakra-ui/react'
 import { ComponentType } from 'react'
 import GlobalStyle from '@/styles/global_style'
 import Theme from '@/styles/theme'

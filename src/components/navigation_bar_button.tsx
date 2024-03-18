@@ -12,7 +12,13 @@ type NavigationBarButtonProps = {
   onClick: any
 }
 
-function NavigationBarButton({ icon, text, href, isActive, onClick }: NavigationBarButtonProps) {
+function NavigationBarButton({
+  icon,
+  text,
+  href,
+  isActive,
+  onClick,
+}: NavigationBarButtonProps) {
   const { colorMode, toggleColorMode } = useColorMode()
   const activeBg = colors[colorMode].btn_active_bg
   const inactiveBg = 'transparent'
