@@ -32,8 +32,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-        </Head>
+        <Head></Head>
         <body>
           <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
           <Main />

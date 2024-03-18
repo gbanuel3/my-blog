@@ -24,9 +24,9 @@ function getRouteItem(url: string) {
   const defaultItem = {
     icon: <FaHome />,
     label: 'Not Found',
-  };
+  }
 
-  return routerMap[url] || defaultItem;
+  return routerMap[url] || defaultItem
 }
 
 const navItems = [
@@ -47,7 +47,7 @@ const navItems = [
   },
 ]
 
-const routerMap : any = {
+const routerMap: any = {
   '/': { icon: <FaHome />, label: 'Home' },
   '/about': { icon: <FaUser />, label: 'About' },
   '/blog': { icon: <FaPen />, label: 'Blog' },
@@ -63,7 +63,7 @@ function NavigationBar() {
   })
   const isMobile = useBreakpointValue({ base: true, md: false })
 
-  const handleNavItemClick = (event : any, item: any, isExternal = false) => {
+  const handleNavItemClick = (event: any, item: any, isExternal = false) => {
     event.preventDefault()
     if (isExternal) {
       window.open(item.url, '_blank')
@@ -95,7 +95,9 @@ function NavigationBar() {
                 icon={item.icon}
                 text={item.label}
                 href={item.url}
-                onClick={(event : any) => handleNavItemClick(event, item, item.isExternal)}
+                onClick={(event: any) =>
+                  handleNavItemClick(event, item, item.isExternal)
+                }
               />
             ))}
           </MenuList>
@@ -109,7 +111,7 @@ function NavigationBar() {
               text={item.label}
               href={item.url}
               isActive={router.pathname === item.url}
-              onClick={(event : any) => handleNavItemClick(event, item, item.isExternal)}
+              onClick={(event: any) => handleNavItemClick(event, item, item.isExternal)}
             />
           ))}
         </Flex>
