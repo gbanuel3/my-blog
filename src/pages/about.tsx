@@ -15,14 +15,14 @@ const About = () => {
           alt="Profile image"
         />
         <Text fontSize="lg">
-          I'm a passionate professional with a love for technology, design, and creating
+          I am a passionate professional with a love for technology, design, and creating
           meaningful work. With a background in both development and design, I blend
           aesthetic vision with technical know-how to create seamless digital
           experiences.
         </Text>
         <Text fontSize="lg">
-          When I'm not coding or pushing pixels, you'll find me in the great outdoors or
-          indulging my love for seeing live music. I'm also an avid reader and enjoy
+          When I am not coding or pushing pixels, you will find me in the great outdoors or
+          indulging my love for seeing live music. I am also an avid reader and enjoy
           exploring the latest in technology trends.
         </Text>
       </VStack>

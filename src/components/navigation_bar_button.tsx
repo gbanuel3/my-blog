@@ -13,8 +13,9 @@ type NavigationBarButtonProps = {
 
 function NavigationBarButton({ icon, text, href, isActive }: NavigationBarButtonProps) {
   const { colorMode, toggleColorMode } = useColorMode()
-  const activeBg = colors[colorMode].btn_active
+  const activeBg = colors[colorMode].btn_active_bg
   const inactiveBg = 'transparent'
+  const activeText = colors[colorMode].btn_active_text
   const hoverColor = isActive ? activeBg : colors[colorMode].btn_hover
   return (
     <Button
@@ -27,13 +28,13 @@ function NavigationBarButton({ icon, text, href, isActive }: NavigationBarButton
       px="4"
       py="2"
       fontSize="md"
-      color={colors[colorMode].btn_text}
+      color={isActive ? activeText : colors[colorMode].btn_text}
       bg={isActive ? activeBg : inactiveBg}
       _hover={{
         bg: hoverColor,
       }}
       _active={{
-        bg: colors[colorMode].btn_active,
+        bg: colors[colorMode].btn_active_bg,
       }}
     >
       <a>{text}</a>
