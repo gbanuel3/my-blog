@@ -46,7 +46,7 @@ function NavigationBarButton({
       }}
       onClick={onClick}
     >
-      <a>{text}</a>
+      {text}
     </Button>
   )
 }

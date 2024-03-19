@@ -53,34 +53,69 @@ function Header() {
 }
 
 function LatestPosts() {
-  const [user, setUser] = useState(null)
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [selectedRecentPosts, setSelectedRecentPosts] = useState(null)
   const userId = 1
 
-  useEffect(() => {
-    async function fetchData() {
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch(endpoint, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         query: `
+  //           query GetUser($id: Int!) {
+  //             getUser(id: $id) {
+  //               id
+  //               name
+  //               email
+  //             }
+  //           }
+  //         `,
+  //         variables: { id: userId },
+  //       }),
+  //     })
+
+  //     const { data } = await response.json()
+  //     setSelectedUser(data.getUser)
+  //   }
+
+  //   fetchData()
+  // }, [userId])
+
+    useEffect(() => {
+    async function fetchRecentPosts() {
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           query: `
-            query GetUser($id: Int!) {
-              getUser(id: $id) {
+            query GetRecentPosts($user_id: Int!) {
+              getRecentPosts(user_id: $user_id) {
                 id
-                name
-                email
+                title
+                content
+                author {
+                  id
+                  name
+                }
+                created_at
+                updated_at
               }
             }
           `,
-          variables: { id: userId },
+          variables: { user_id: userId },
         }),
       })
 
       const { data } = await response.json()
-      setUser(data.getUser)
+      setSelectedRecentPosts(data.getRecentPosts)
+      console.log(data)
     }
 
-    fetchData()
+    fetchRecentPosts()
   }, [userId])
+
 
   return <></>
 }
