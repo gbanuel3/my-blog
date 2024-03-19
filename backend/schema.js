@@ -10,6 +10,7 @@ const schema = buildSchema(`
     name: String
     email: String
   }
+
 `)
 
 module.exports = schema

@@ -53,7 +53,8 @@ function Header() {
 }
 
 function LatestPosts() {
-  const [user, setUser] = useState(null)
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [selectedRecentPosts, setSelectedRecentPosts] = useState(null)
   const userId = 1
 
   useEffect(() => {
@@ -76,11 +77,38 @@ function LatestPosts() {
       })
 
       const { data } = await response.json()
-      setUser(data.getUser)
+      setSelectedUser(data.getUser)
     }
 
     fetchData()
   }, [userId])
+
+  //   useEffect(() => {
+  //   async function fetchRecentPosts() {
+  //     const response = await fetch(endpoint, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         query: `
+  //           query GetUser($id: Int!) {
+  //             getUser(id: $id) {
+  //               id
+  //               name
+  //               email
+  //             }
+  //           }
+  //         `,
+  //         variables: { id: userId },
+  //       }),
+  //     })
+
+  //     const { data } = await response.json()
+  //     setSelectedUser(data.getUser)
+  //   }
+
+  //   fetchRecentPosts()
+  // }, [userId])
+
 
   return <></>
 }
