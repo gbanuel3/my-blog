@@ -57,34 +57,8 @@ function LatestPosts() {
   const [selectedRecentPosts, setSelectedRecentPosts] = useState(null)
   const userId = 1
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: `
-            query GetUser($id: Int!) {
-              getUser(id: $id) {
-                id
-                name
-                email
-              }
-            }
-          `,
-          variables: { id: userId },
-        }),
-      })
-
-      const { data } = await response.json()
-      setSelectedUser(data.getUser)
-    }
-
-    fetchData()
-  }, [userId])
-
-  //   useEffect(() => {
-  //   async function fetchRecentPosts() {
+  // useEffect(() => {
+  //   async function fetchData() {
   //     const response = await fetch(endpoint, {
   //       method: 'POST',
   //       headers: { 'Content-Type': 'application/json' },
@@ -106,8 +80,41 @@ function LatestPosts() {
   //     setSelectedUser(data.getUser)
   //   }
 
-  //   fetchRecentPosts()
+  //   fetchData()
   // }, [userId])
+
+    useEffect(() => {
+    async function fetchRecentPosts() {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: `
+            query GetRecentPosts($user_id: Int!) {
+              getRecentPosts(user_id: $user_id) {
+                id
+                title
+                content
+                author {
+                  id
+                  name
+                }
+                created_at
+                updated_at
+              }
+            }
+          `,
+          variables: { user_id: userId },
+        }),
+      })
+
+      const { data } = await response.json()
+      setSelectedRecentPosts(data.getRecentPosts)
+      console.log(data)
+    }
+
+    fetchRecentPosts()
+  }, [userId])
 
 
   return <></>
