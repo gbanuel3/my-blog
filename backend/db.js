@@ -1,10 +1,17 @@
 require('dotenv').config()
 const { Pool } = require('pg')
 
+if (process.env.NODE_ENV === 'production') {
+  DB_HOST = process.env.DB_HOST
+} else {
+  DB_HOST = process.env.DB_IP
+}
+
+console.log(DB_HOST)
 const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  host: process.env.DB_IP,
+  host: DB_HOST,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT,
   ssl: {

@@ -1,10 +1,20 @@
+require('dotenv').config()
+
+const next = require('next');
 const express = require('express')
 const { graphqlHTTP } = require('express-graphql')
 const cors = require('cors')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 const resolvers = require('./resolvers')
 
-const typeDefs = `
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
+app.prepare().then(() => {
+  const server = express();
+
+  const typeDefs = `
+
   type Query {
     getUser(id: Int!): User
     getRecentPosts(user_id: Int!): [Post]
@@ -26,25 +36,23 @@ const typeDefs = `
   }
 `
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-})
+  server.use(cors());
+  server.use(
+    '/graphql',
+    graphqlHTTP({
+      schema: makeExecutableSchema({ typeDefs, resolvers }),
+      graphiql: dev,
+    }),
+  );
 
-const app = express()
+  // Next.js page serving
+  server.all('*', (req, res) => {
+    return handle(req, res);
+  });
 
-
-app.use(cors())
-app.use(
-  '/graphql',
-  graphqlHTTP({
-    schema,
-    graphiql: process.env.NODE_ENV !== 'production',
-  }),
-)
-
-// Define the port and start the server
-const PORT = process.env.PORT || 4000
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/graphql`)
-})
+  const PORT = process.env.PORT || 4000;
+  server.listen(PORT, (err) => {
+    if (err) throw err;
+    console.log(`> Ready on http://localhost:${PORT}`);
+  });
+});
