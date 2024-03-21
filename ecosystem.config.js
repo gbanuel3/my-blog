@@ -3,7 +3,7 @@ module.exports = {
       {
         name: 'NextApp',
         script: 'npm',
-        args: 'run start', // Assumes your package.json has a "start" script for Next.js
+        args: 'run start -- -p 8081'
       },
       {
         name: 'ExpressAPI',
