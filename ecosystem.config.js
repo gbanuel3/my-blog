@@ -7,7 +7,7 @@ module.exports = {
       },
       {
         name: 'ExpressAPI',
-        script: './index.js', // Path to your Express server entry file
+        script: './backend/index.js', // Path to your Express server entry file
       },
     ],
   };
