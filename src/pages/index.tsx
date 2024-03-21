@@ -163,6 +163,7 @@ function LatestPosts() {
                         fontSize={textSize}
                         fontWeight="bold"
                         className="post-title"
+                        color={colors[colorMode].latest_post_title}
                       >
                         {post.title}
                       </Text>
@@ -185,6 +186,13 @@ function LatestPosts() {
   )
 }
 
+function Highlights() {
+  return (
+    <>
+    </>
+  )
+}
+
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode()
 
@@ -196,6 +204,7 @@ export default function Home() {
       <VStack fontSize="xl" p={5} bg={colors[colorMode].bg_color}>
         <Header />
         <LatestPosts />
+        <Highlights />
       </VStack>
     </>
   )
