@@ -16,6 +16,7 @@ import { colors, endpoint } from '@/constants'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { Skeleton } from '@chakra-ui/react'
 
 function formatMonthYear(dateString: string): string {
   const date = new Date(dateString)
@@ -31,8 +32,8 @@ function Header() {
     md: 'row',
   })
   const isBaseLayout = useBreakpointValue({ base: true, md: false })
-  const headerSize = useBreakpointValue({base: 'xl', md: '2xl'})
-  const textSize = useBreakpointValue({base: 'lg', md: 'xl'})
+  const headerSize = useBreakpointValue({ base: 'xl', md: '2xl' })
+  const textSize = useBreakpointValue({ base: 'lg', md: 'xl' })
   return (
     <Stack
       direction={stackDirection} // Stack direction changes based on breakpoint
@@ -65,15 +66,18 @@ function Header() {
 function LatestPosts() {
   const { colorMode, toggleColorMode } = useColorMode()
   const [selectedRecentPosts, setSelectedRecentPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const userId = 1
 
   useEffect(() => {
     async function fetchRecentPosts() {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: `
+      setIsLoading(true)
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `
             query GetRecentPosts($user_id: Int!) {
               getRecentPosts(user_id: $user_id) {
                 id
@@ -88,19 +92,24 @@ function LatestPosts() {
               }
             }
           `,
-          variables: { user_id: userId },
-        }),
-      })
+            variables: { user_id: userId },
+          }),
+        })
 
-      const { data } = await response.json()
-      setSelectedRecentPosts(data.getRecentPosts)
+        const { data } = await response.json()
+        setSelectedRecentPosts(data.getRecentPosts)
+      } catch (error) {
+        console.log('Error fetching posts', error)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     fetchRecentPosts()
   }, [userId])
 
   const isSmallLayout = useBreakpointValue({ base: true, md: false })
-  const textSize = useBreakpointValue({base: 'lg', md: 'xl'})
+  const textSize = useBreakpointValue({ base: 'lg', md: 'xl' })
   return (
     <Box
       width="100%"
@@ -117,50 +126,60 @@ function LatestPosts() {
         </Button>
       </Flex>
       <VStack spacing={0} align="stretch">
-        {selectedRecentPosts.map((post: any, index: number) => (
-          <Link href={`/blog/${post.id}`} passHref key={post.id}>
-            <Box
-              as="a" // Make the Box act as an anchor tag
-              borderBottom="1px"
-              borderColor={colors[colorMode].border_color}
-              pb={2}
-              mb={3}
-              _hover={{
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-              sx={{
-                '.post-title': {
-                  transition: 'color 0.2s',
-                },
-                '&:hover .post-title': {
-                  color: colors[colorMode].header_text, // Ensure this color is defined
-                  textDecoration: 'underline',
-                },
-              }}
-            >
-              <Box
-                borderBottom="1px"
-                borderColor={colors[colorMode].border_color}
-                pb={2}
-                mb={3}
-              >
-                <Flex justify="space-between" align="center">
-                  <Text fontSize={textSize} fontWeight="bold" className="post-title">
-                    {post.title}
-                  </Text>
-                  {!isSmallLayout && (<Text
-                    fontSize="md"
-                    color={colors[colorMode].date_color}
-                    className="post-date"
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton key={index} height="20px" my="10px" bg={colors[colorMode].bg_color}/>
+            ))
+          : selectedRecentPosts.map((post: any, index: number) => (
+              <Link href={`/blog/${post.id}`} passHref key={post.id}>
+                <Box
+                  as="a" // Make the Box act as an anchor tag
+                  borderBottom="1px"
+                  borderColor={colors[colorMode].border_color}
+                  pb={2}
+                  mb={3}
+                  _hover={{
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                  }}
+                  sx={{
+                    '.post-title': {
+                      transition: 'color 0.2s',
+                    },
+                    '&:hover .post-title': {
+                      color: colors[colorMode].header_text, // Ensure this color is defined
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
+                  <Box
+                    borderBottom="1px"
+                    borderColor={colors[colorMode].border_color}
+                    pb={2}
+                    mb={3}
                   >
-                    {formatMonthYear(post.created_at)}
-                  </Text>)}
-                </Flex>
-              </Box>
-            </Box>
-          </Link>
-        ))}
+                    <Flex justify="space-between" align="center">
+                      <Text
+                        fontSize={textSize}
+                        fontWeight="bold"
+                        className="post-title"
+                      >
+                        {post.title}
+                      </Text>
+                      {!isSmallLayout && (
+                        <Text
+                          fontSize="md"
+                          color={colors[colorMode].date_color}
+                          className="post-date"
+                        >
+                          {formatMonthYear(post.created_at)}
+                        </Text>
+                      )}
+                    </Flex>
+                  </Box>
+                </Box>
+              </Link>
+            ))}
       </VStack>
     </Box>
   )
