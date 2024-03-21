@@ -8,6 +8,9 @@ export const colors = {
     btn_text: '#252525',
     header_text: '#1f1f1f',
     text_color: '#2c2c2c',
+    border_color: 'gray.300',
+    date_color: '#666666',
+    latest_post_title: '#666666'
   },
   dark: {
     transparent: 'transparent',
@@ -18,6 +21,9 @@ export const colors = {
     btn_text: '#bbbbbb',
     header_text: '#ffffff',
     text_color: '#dddddd',
+    border_color: '#2c2c2c',
+    date_color: '#fe7d05',
+    latest_post_title: '#999999'
   },
 }
 
