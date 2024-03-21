@@ -3,6 +3,8 @@ import { ComponentType } from 'react'
 import GlobalStyle from '@/styles/global_style'
 import Theme from '@/styles/theme'
 import NavigationBar from '@/components/navigation_bar'
+import ReactDOM from 'react-dom'
+import React from 'react'
 
 function MyApp({
   Component,
@@ -12,16 +14,18 @@ function MyApp({
   pageProps: any
 }) {
   return (
-    <ChakraProvider theme={Theme}>
-      <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
-      <GlobalStyle />
-      <Container maxW="800px">
-        <NavigationBar />
-        <VStack spacing={8} width="100%">
-          <Component {...pageProps} />
-        </VStack>
-      </Container>
-    </ChakraProvider>
+    <React.StrictMode>
+        <ChakraProvider theme={Theme}>
+          <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
+          <GlobalStyle />
+          <Container maxW="800px">
+            <NavigationBar />
+            <VStack spacing={8} width="100%">
+              <Component {...pageProps} />
+            </VStack>
+          </Container>
+        </ChakraProvider>
+    </React.StrictMode>
   )
 }
 

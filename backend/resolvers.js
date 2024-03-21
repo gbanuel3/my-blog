@@ -15,7 +15,7 @@ const resolvers = {
     getRecentPosts: async (_, { user_id }) => {
       try {
         const { rows } = await pool.query(
-          'SELECT * FROM posts WHERE author_id = $1 ORDER BY created_at DESC',
+          'SELECT * FROM posts WHERE author_id = $1 ORDER BY created_at DESC LIMIT 6',
           [user_id],
         )
         return rows

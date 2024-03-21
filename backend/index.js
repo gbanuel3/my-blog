@@ -38,7 +38,7 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema, 
-    graphiql: process.env.NODE_ENV !== 'production', // Enable the GraphiQL interface in non-production environments
+    graphiql: process.env.NODE_ENV !== 'production', 
   })
 );
 
