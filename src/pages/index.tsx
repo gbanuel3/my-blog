@@ -130,7 +130,7 @@ function LatestPosts() {
           ? Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} height="20px" my="10px" bg={colors[colorMode].bg_color}/>
             ))
-          : selectedRecentPosts.map((post: any, index: number) => (
+          : selectedRecentPosts?.map((post: any, index: number) => (
               <Link href={`/blog/${post.id}`} passHref key={post.id}>
                 <Box
                   as="a" // Make the Box act as an anchor tag

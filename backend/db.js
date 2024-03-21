@@ -7,7 +7,6 @@ if (process.env.NODE_ENV === 'production') {
   DB_HOST = process.env.DB_IP
 }
 
-console.log(DB_HOST)
 const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
