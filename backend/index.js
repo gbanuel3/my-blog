@@ -33,21 +33,8 @@ const schema = makeExecutableSchema({
 
 const app = express()
 
-const origin =
-  process.env.NODE_ENV === 'production'
-    ? 'https://gil.technology'
-    : 'http://localhost:3000'
-const corsOptions = {
-  origin: origin, // Ensure this matches your frontend's origin
-  methods: ['GET', 'POST', 'OPTIONS'], // Explicitly include OPTIONS
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204, // Some browsers (like IE11) use 200
-}
 
-app.use(cors(corsOptions))
-app.options('*', cors(corsOptions)) // Apply CORS for all OPTIONS requests
+app.use(cors())
 app.use(
   '/graphql',
   graphqlHTTP({
