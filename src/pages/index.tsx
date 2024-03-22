@@ -10,19 +10,47 @@ import {
   VStack,
   useBreakpointValue,
   Stack,
-  StackDirection,
+  Grid,
+  Icon,
+  Spacer,
+  HStack,
+  color,
 } from '@chakra-ui/react'
 import { colors, endpoint } from '@/constants'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Skeleton } from '@chakra-ui/react'
+import * as FaIcons from 'react-icons/fa'
+import * as LuIcons from 'react-icons/lu'
+
+type IconType = {
+  [key: string]: React.ComponentType<React.SVGAttributes<SVGElement>>
+}
 
 function formatMonthYear(dateString: string): string {
   const date = new Date(dateString)
-
   const formatter = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' })
   return formatter.format(date)
+}
+
+function formatMonthDayYear(dateString: string): string {
+  const date = new Date(dateString)
+
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+  return formatter.format(date)
+}
+
+function slugify(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9 -]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 function Header() {
@@ -128,16 +156,21 @@ function LatestPosts() {
       <VStack spacing={0} align="stretch">
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
-              <Skeleton key={index} height="20px" my="10px" bg={colors[colorMode].bg_color}/>
+              <Skeleton
+                key={index}
+                height="20px"
+                my="10px"
+                bg={colors[colorMode].bg_color}
+              />
             ))
           : selectedRecentPosts?.map((post: any, index: number) => (
-              <Link href={`/blog/${post.id}`} passHref key={post.id}>
+              <Link href={`/blog/${slugify(post.title)}`} passHref key={post.id}>
                 <Box
-                  as="a" // Make the Box act as an anchor tag
+                  as="a" 
                   borderBottom="1px"
                   borderColor={colors[colorMode].border_color}
-                  pb={2}
-                  mb={3}
+                  pb={1}
+                  mb={1}
                   _hover={{
                     textDecoration: 'none',
                     cursor: 'pointer',
@@ -187,9 +220,124 @@ function LatestPosts() {
 }
 
 function Highlights() {
+  const { colorMode, toggleColorMode } = useColorMode()
+
+  const [selectedHighlights, setSelectedHighlights] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const userId = 1
+
+  useEffect(() => {
+    async function fetchHighlights() {
+      setIsLoading(true)
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `
+            query GetHighlights {
+              getHighlights {
+                id
+                title
+                content
+                author {
+                  id
+                  name
+                }
+                created_at
+                updated_at
+                icon
+              }
+            }
+          `,
+          }),
+        })
+
+        const { data } = await response.json()
+        console.log(data)
+        setSelectedHighlights(data.getHighlights)
+      } catch (error) {
+        console.log('Error fetching highlights', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchHighlights()
+  }, [userId])
+
+  const textSize = useBreakpointValue({ base: 'lg', md: 'xl' })
   return (
-    <>
-    </>
+    <Box
+      background={colors[colorMode].bg_color}
+      borderRadius="lg"
+      p={4}
+      width={'100%'}
+      mb={'2px'}
+    >
+      <Flex justify="space-between" mb={5}>
+        <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
+          Highlights
+        </Heading>
+        <Spacer />
+      </Flex>
+      <Grid
+        templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)' }}
+        gap={4}
+        color={colors[colorMode].grid_color}
+      >
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                height="20px"
+                my="10px"
+                bg={colors[colorMode].bg_color}
+              />
+            ))
+          : selectedHighlights?.map((item: any, index: any) => (
+              <Link href={`/blog/${slugify(item.title)}`} passHref key={item.id}>
+                <HStack
+                  as="a"
+                  key={index}
+                  align="center"
+                  justify="left"
+                  p={4}
+                  background={colors[colorMode].bg_color}
+                  borderRadius="lg"
+                  spacing={4}
+                  border="0.5px solid"
+                  borderColor={colors[colorMode].grid_color}
+                  width="100%"
+                  _hover={{ textDecoration: 'none' }}
+                  sx={{
+                    '.grid-title': {
+                      transition: 'color 0.2s',
+                    },
+                    '&:hover .grid-title': {
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
+                  <Image
+                    src={item.icon}
+                    boxSize={{ base: '40px', md: '60px' }}
+                    objectFit="cover"
+                    alt="Photo Icon"
+                  />
+                  <VStack spacing={0} align="start">
+                    <Text fontSize="sm" color={colors[colorMode].grid_date}>
+                      {formatMonthDayYear(item.created_at)}
+                    </Text>
+                    <Text fontSize={textSize} className="grid-title" fontWeight="500" color={colors[colorMode].grid_text} _hover={{ textDecoration: 'underline' }}>
+                      {item.title}
+                    </Text>
+                  </VStack>
+                </HStack>
+              </Link>
+            ))}
+      </Grid>
+    </Box>
   )
 }
 

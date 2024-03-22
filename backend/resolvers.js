@@ -24,6 +24,17 @@ const resolvers = {
         throw new Error('Error fetching recent posts.')
       }
     },
+    getHighlights: async () => {
+      try {
+        const { rows } = await pool.query(
+          'SELECT * FROM posts WHERE is_highlight = TRUE LIMIT 12',
+        )
+        return rows
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching highlights.')
+      }
+    },
   },
   Post: {
     author: async (post) => {
