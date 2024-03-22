@@ -12,29 +12,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
-
-  const typeDefs = `
-
-  type Query {
-    getUser(id: Int!): User
-    getRecentPosts(user_id: Int!): [Post]
-  }
-
-  type User {
-    id: Int
-    name: String
-    email: String
-  }
-
-  type Post {
-    id: Int
-    title: String
-    content: String
-    author: User
-    created_at: String
-    updated_at: String
-  }
-`
+  const typeDefs = require('./typeDef')
 
   server.use(cors());
   server.use(

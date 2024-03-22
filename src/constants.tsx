@@ -10,7 +10,10 @@ export const colors = {
     text_color: '#2c2c2c',
     border_color: 'gray.300',
     date_color: '#666666',
-    latest_post_title: '#666666'
+    latest_post_title: '#666666',
+    grid_color: "#2c2c2c",
+    grid_text: "#1f1f1f",
+    grid_date: "#666666"
   },
   dark: {
     transparent: 'transparent',
@@ -23,7 +26,10 @@ export const colors = {
     text_color: '#dddddd',
     border_color: '#2c2c2c',
     date_color: '#fe7d05',
-    latest_post_title: '#999999'
+    latest_post_title: '#999999',
+    grid_color: "#e4e4e4",
+    grid_text: "#ffffff",
+    grid_date: "#999999"
   },
 }
 

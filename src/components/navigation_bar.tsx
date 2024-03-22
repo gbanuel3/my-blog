@@ -63,6 +63,13 @@ function NavigationBar() {
   })
   const isMobile = useBreakpointValue({ base: true, md: false })
 
+  useEffect(() => {
+    setSelectedItem({
+      label: getRouteItem(router.pathname).label,
+      icon: getRouteItem(router.pathname).icon,
+    })
+  }, [router.pathname])
+
   const handleNavItemClick = (event: any, item: any, isExternal = false) => {
     event.preventDefault()
     if (isExternal) {
