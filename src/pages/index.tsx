@@ -419,6 +419,15 @@ function Projects() {
                 colorScheme="gray"
                 size={btnSize}
               >
+                Source
+              </Button>
+              <Button
+                as={Link}
+                href="/blog"
+                isDisabled={false}
+                colorScheme="gray"
+                size={btnSize}
+              >
                 Article
               </Button>
               <Button
@@ -429,15 +438,6 @@ function Projects() {
                 size={btnSize}
               >
                 Demo
-              </Button>
-              <Button
-                as={Link}
-                href="/blog"
-                isDisabled={false}
-                colorScheme="gray"
-                size={btnSize}
-              >
-                Source
               </Button>
             </Flex>
           </VStack>
