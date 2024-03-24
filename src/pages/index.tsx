@@ -11,22 +11,14 @@ import {
   useBreakpointValue,
   Stack,
   Grid,
-  Icon,
   Spacer,
   HStack,
-  color,
 } from '@chakra-ui/react'
 import { colors, endpoint } from '@/constants'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Skeleton } from '@chakra-ui/react'
-import * as FaIcons from 'react-icons/fa'
-import * as LuIcons from 'react-icons/lu'
-
-type IconType = {
-  [key: string]: React.ComponentType<React.SVGAttributes<SVGElement>>
-}
 
 function formatMonthYear(dateString: string): string {
   const date = new Date(dateString)
@@ -50,7 +42,7 @@ function slugify(title: string) {
     .toLowerCase()
     .replace(/[^a-z0-9 -]/g, '')
     .replace(/\s+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/^-+|-+$/g, '')
 }
 
 function Header() {
@@ -64,15 +56,15 @@ function Header() {
   const textSize = useBreakpointValue({ base: 'lg', md: 'xl' })
   return (
     <Stack
-      direction={stackDirection} // Stack direction changes based on breakpoint
+      direction={stackDirection}
       bg={colors[colorMode].bg_color}
       p={{ base: 4, md: 8 }}
       align="center"
-      spacing={4} // Adjust spacing between items in the stack
+      spacing={4}
     >
       <Image
         src="/climber.png"
-        boxSize={{ base: '150px', md: '200px' }} // Adjust the image size responsively
+        boxSize={{ base: '150px', md: '200px' }}
         objectFit="cover"
         alt="Rock Climbing"
         order={isBaseLayout ? 0 : 1}
@@ -166,7 +158,7 @@ function LatestPosts() {
           : selectedRecentPosts?.map((post: any, index: number) => (
               <Link href={`/blog/${slugify(post.title)}`} passHref key={post.id}>
                 <Box
-                  as="a" 
+                  as="a"
                   borderBottom="1px"
                   borderColor={colors[colorMode].border_color}
                   pb={1}
@@ -254,7 +246,6 @@ function Highlights() {
         })
 
         const { data } = await response.json()
-        console.log(data)
         setSelectedHighlights(data.getHighlights)
       } catch (error) {
         console.log('Error fetching highlights', error)
@@ -285,6 +276,8 @@ function Highlights() {
         templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)' }}
         gap={4}
         color={colors[colorMode].grid_color}
+        alignItems="stretch" // Add this to stretch the items vertically
+        gridAutoRows="1fr" // This makes the rows have equal height
       >
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
@@ -302,13 +295,14 @@ function Highlights() {
                   key={index}
                   align="center"
                   justify="left"
-                  p={4}
+                  p={2}
                   background={colors[colorMode].bg_color}
                   borderRadius="lg"
                   spacing={4}
                   border="0.5px solid"
                   borderColor={colors[colorMode].grid_color}
                   width="100%"
+                  height="100%"
                   _hover={{ textDecoration: 'none' }}
                   sx={{
                     '.grid-title': {
@@ -324,18 +318,135 @@ function Highlights() {
                     boxSize={{ base: '40px', md: '60px' }}
                     objectFit="cover"
                     alt="Photo Icon"
+                    ml={"3px"}
                   />
                   <VStack spacing={0} align="start">
                     <Text fontSize="sm" color={colors[colorMode].grid_date}>
                       {formatMonthDayYear(item.created_at)}
                     </Text>
-                    <Text fontSize={textSize} className="grid-title" fontWeight="500" color={colors[colorMode].grid_text} _hover={{ textDecoration: 'underline' }}>
+                    <Text
+                      fontSize={textSize}
+                      className="grid-title"
+                      fontWeight="500"
+                      color={colors[colorMode].grid_text}
+                      _hover={{ textDecoration: 'underline' }}
+                    >
                       {item.title}
                     </Text>
                   </VStack>
                 </HStack>
               </Link>
             ))}
+      </Grid>
+    </Box>
+  )
+}
+
+function Projects() {
+  const { colorMode, toggleColorMode } = useColorMode()
+  const projects = [
+    {
+      year: 'May 2024',
+      title: 'Blockchain Voting',
+      description: 'Host an election using blockchain technology',
+    },
+    {
+      year: 'May 2024',
+      title: 'Blockchain Voting',
+      description: 'Host an election using blockchain technology',
+    },
+    {
+      year: 'May 2024',
+      title: 'Blockchain Voting',
+      description: 'Host an election using blockchain technology',
+    },
+    {
+      year: 'May 2024',
+      title: 'Blockchain Voting',
+      description: 'Host an election using blockchain technology',
+    },
+    {
+      year: 'May 2024',
+      title: 'Blockchain Voting',
+      description: 'Host an election using blockchain technology',
+    },
+    {
+      year: 'May 2024',
+      title: 'Blockchain Voting',
+      description: 'Host an election using blockchain technology',
+    },
+  ]
+  const textSize = useBreakpointValue({ base: 'lg', md: 'xl' })
+  const btnSize = useBreakpointValue({ base: 'md', md: 'xs' })
+  return (
+    <Box p={5} color="white">
+      <Flex justify="space-between" align="center" mb={5}>
+        <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
+          Projects
+        </Heading>
+        <Button as={Link} href="/projects" colorScheme="gray">
+          View all
+        </Button>
+      </Flex>
+      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }} gap={3}>
+        {projects.map((project, index) => (
+          <VStack
+            key={index}
+            p={5}
+            borderRadius="lg"
+            align="flex-start"
+            spacing={4}
+            boxShadow="lg"
+            bg={colors[colorMode].project_box_color}
+          >
+            <Text
+              fontSize="lg"
+              fontWeight="bold"
+              color={colors[colorMode].project_year}
+            >
+              {project.year}
+            </Text>
+            <Text
+              fontSize="xl"
+              fontWeight="bold"
+              color={colors[colorMode].project_title}
+            >
+              {project.title}
+            </Text>
+            <Text fontSize="md" color={colors[colorMode].project_description}>
+              {project.description}
+            </Text>
+            <Flex gap={'3px'} align={'center'}>
+              <Button
+                as={Link}
+                href="/blog/"
+                isDisabled={false}
+                colorScheme="gray"
+                size={btnSize}
+              >
+                Source
+              </Button>
+              <Button
+                as={Link}
+                href="/blog"
+                isDisabled={false}
+                colorScheme="gray"
+                size={btnSize}
+              >
+                Article
+              </Button>
+              <Button
+                as={Link}
+                href="/blog"
+                isDisabled={false}
+                colorScheme="gray"
+                size={btnSize}
+              >
+                Demo
+              </Button>
+            </Flex>
+          </VStack>
+        ))}
       </Grid>
     </Box>
   )
@@ -353,6 +464,7 @@ export default function Home() {
         <Header />
         <LatestPosts />
         <Highlights />
+        <Projects />
       </VStack>
     </>
   )

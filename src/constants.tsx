@@ -13,7 +13,11 @@ export const colors = {
     latest_post_title: '#666666',
     grid_color: "#2c2c2c",
     grid_text: "#1f1f1f",
-    grid_date: "#666666"
+    grid_date: "#666666",
+    project_box_color: "#f9f9f9",
+    project_year: "#9f9f9f",
+    project_title: "#202020",
+    project_description: "#888888",
   },
   dark: {
     transparent: 'transparent',
@@ -26,10 +30,14 @@ export const colors = {
     text_color: '#dddddd',
     border_color: '#2c2c2c',
     date_color: '#fe7d05',
-    latest_post_title: '#999999',
+    latest_post_title: 'gray.200',
     grid_color: "#e4e4e4",
     grid_text: "#ffffff",
-    grid_date: "#999999"
+    grid_date: "#999999",
+    project_box_color: "#202020",
+    project_year: "white",
+    project_title: "white",
+    project_description: "gray.300",
   },
 }
 
