@@ -276,6 +276,8 @@ function Highlights() {
         templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)' }}
         gap={4}
         color={colors[colorMode].grid_color}
+        alignItems="stretch" // Add this to stretch the items vertically
+        gridAutoRows="1fr" // This makes the rows have equal height
       >
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
@@ -293,13 +295,14 @@ function Highlights() {
                   key={index}
                   align="center"
                   justify="left"
-                  p={4}
+                  p={2}
                   background={colors[colorMode].bg_color}
                   borderRadius="lg"
                   spacing={4}
                   border="0.5px solid"
                   borderColor={colors[colorMode].grid_color}
                   width="100%"
+                  height="100%"
                   _hover={{ textDecoration: 'none' }}
                   sx={{
                     '.grid-title': {
@@ -315,6 +318,7 @@ function Highlights() {
                     boxSize={{ base: '40px', md: '60px' }}
                     objectFit="cover"
                     alt="Photo Icon"
+                    ml={"3px"}
                   />
                   <VStack spacing={0} align="start">
                     <Text fontSize="sm" color={colors[colorMode].grid_date}>
@@ -387,6 +391,7 @@ function Projects() {
       <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }} gap={3}>
         {projects.map((project, index) => (
           <VStack
+            key={index}
             p={5}
             borderRadius="lg"
             align="flex-start"
