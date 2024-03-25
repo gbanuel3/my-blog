@@ -10,7 +10,7 @@ export default function Custom404() {
         404 - Page Not Found
       </Heading>
       <Text color={'gray.500'}>
-        The page you are looking for does not seem to exist.
+        The page you are looking for does not seem to exist, or is coming soon!
       </Text>
       <Button colorScheme="gray" size="lg" mt={4}>
         <Link href="/">Go Home</Link>
