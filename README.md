@@ -1,4 +1,4 @@
 Welcome to my personal website! 
-Hosted at:
-# gil.technology
+
+gil.technology
 
