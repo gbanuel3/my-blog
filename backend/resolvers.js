@@ -35,6 +35,17 @@ const resolvers = {
         throw new Error('Error fetching highlights.')
       }
     },
+    getHighlightedProjects: async () => {
+      try {
+        const { rows } = await pool.query(
+          'SELECT * FROM projects WHERE is_highlighted = TRUE LIMIT 6',
+        )
+        return rows
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching highlighted projects.')
+      }
+    }
   },
   Post: {
     author: async (post) => {
@@ -42,7 +53,20 @@ const resolvers = {
         const { rows } = await pool.query('SELECT * FROM users WHERE users.id = $1', [
           post.author_id,
         ])
-        return rows[0] // Returns the first user matching the id or undefined
+        return rows[0]
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching post author.')
+      }
+    },
+  },
+  Project: {
+    author: async (post) => {
+      try {
+        const { rows } = await pool.query('SELECT * FROM users WHERE users.id = $1', [
+          post.author_id,
+        ])
+        return rows[0]
       } catch (error) {
         console.error(error)
         throw new Error('Error fetching post author.')
