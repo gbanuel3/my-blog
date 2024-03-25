@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, useColorMode } from '@chakra-ui/react'
+import { Button, useColorMode, Image } from '@chakra-ui/react'
 import { IconType } from 'react-icons'
 import Link from 'next/link'
 import { colors } from '@/constants'
@@ -29,7 +29,12 @@ function NavigationBarButton({
     <Button
       as={Link}
       href={href}
-      leftIcon={icon}
+      leftIcon={<Image
+        src={icon}
+        width="30px"
+        height="30px"
+        alt={text}
+      />}
       colorScheme="gray"
       variant="outline"
       borderRadius="full"

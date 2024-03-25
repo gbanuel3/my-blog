@@ -4,6 +4,7 @@ type Query {
   getUser(id: Int!): User
   getRecentPosts(user_id: Int!): [Post]
   getHighlights: [Post]
+  getHighlightedProjects: [Project]
 }
 
 type User {
@@ -21,6 +22,19 @@ type Post {
   updated_at: String
   is_highlight: Boolean
   icon: String
+}
+
+type Project {
+  id: Int
+  releaseDate: String
+  name: String
+  description: String
+  sourceUrl: String
+  demoUrl: String
+  articleUrl: String
+  favoritesCount: Int
+  author: User
+  is_hightlighted: Boolean
 }
 `
 
