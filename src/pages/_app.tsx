@@ -3,7 +3,7 @@ import { ComponentType } from 'react'
 import GlobalStyle from '@/styles/global_style'
 import Theme from '@/styles/theme'
 import NavigationBar from '@/components/navigation_bar'
-import ReactDOM from 'react-dom'
+import SocialMedia from '@/components/social_media'
 import React from 'react'
 
 function MyApp({
@@ -23,6 +23,7 @@ function MyApp({
             <VStack spacing={8} width="100%">
               <Component {...pageProps} />
             </VStack>
+            <SocialMedia />
           </Container>
         </ChakraProvider>
     </React.StrictMode>

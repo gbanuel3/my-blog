@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Url } from 'next/dist/shared/lib/router/router'
 import DropdownMenuItem from './dropdown_menu_item'
+import { GITHUB } from '@/constants'
 
 function getRouteItem(url: string) {
   const defaultItem = {
@@ -40,7 +41,7 @@ const navItems = [
     isExternal: false,
   },
   {
-    url: 'https://github.com/gbanuel3',
+    url: GITHUB,
     icon: <FaGithub />,
     label: 'GitHub',
     isExternal: true,
