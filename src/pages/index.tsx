@@ -20,7 +20,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Skeleton } from '@chakra-ui/react'
 
-function formatMonthYear(dateString: string): string {
+export function formatMonthYear(dateString: string): string {
   const date = new Date(dateString)
   const formatter = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' })
   return formatter.format(date)
@@ -37,7 +37,7 @@ function formatMonthDayYear(dateString: string): string {
   return formatter.format(date)
 }
 
-function slugify(title: string) {
+export function slugify(title: string) {
   return title
     .toLowerCase()
     .replace(/[^a-z0-9 -]/g, '')
@@ -268,7 +268,7 @@ function Highlights() {
     >
       <Flex justify="space-between" mb={5}>
         <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
-          Highlights
+          Blog Highlights
         </Heading>
         <Spacer />
       </Flex>
@@ -397,7 +397,7 @@ function Projects() {
     <Box p={5} color="white">
       <Flex justify="space-between" align="center" mb={5}>
         <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
-          Projects
+          Featured Projects
         </Heading>
         <Button as={Link} href="/projects" colorScheme="gray">
           View all
@@ -432,16 +432,21 @@ function Projects() {
                   {formatMonthYear(project?.releaseDate)}
                 </Text>
                 <Link href={project.sourceUrl} passHref key={project.id}>
-                <Text
-                  fontSize="xl"
-                  fontWeight="bold"
-                  color={colors[colorMode].project_title}
-                  _hover={{ textDecoration: 'underline' }}
-                >
-                  {project?.name}
-                </Text>
+                  <Text
+                    fontSize="xl"
+                    fontWeight="bold"
+                    color={colors[colorMode].project_title}
+                    _hover={{ textDecoration: 'underline' }}
+                  >
+                    {project?.name}
+                  </Text>
                 </Link>
-                <Text fontSize="md" color={colors[colorMode].project_description} noOfLines={3} lineHeight={'tight'}>
+                <Text
+                  fontSize="md"
+                  color={colors[colorMode].project_description}
+                  noOfLines={3}
+                  lineHeight={'tight'}
+                >
                   {project?.description}
                 </Text>
                 <Flex gap={'3px'} align={'center'}>

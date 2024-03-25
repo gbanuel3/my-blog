@@ -5,6 +5,7 @@ type Query {
   getRecentPosts(user_id: Int!): [Post]
   getHighlights: [Post]
   getHighlightedProjects: [Project]
+  getAllPosts: [Post]
 }
 
 type User {
