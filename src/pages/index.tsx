@@ -431,13 +431,16 @@ function Projects() {
                 >
                   {formatMonthYear(project?.releaseDate)}
                 </Text>
+                <Link href={project.sourceUrl} passHref key={project.id}>
                 <Text
                   fontSize="xl"
                   fontWeight="bold"
                   color={colors[colorMode].project_title}
+                  _hover={{ textDecoration: 'underline' }}
                 >
                   {project?.name}
                 </Text>
+                </Link>
                 <Text fontSize="md" color={colors[colorMode].project_description} noOfLines={3} lineHeight={'tight'}>
                   {project?.description}
                 </Text>
