@@ -3,6 +3,7 @@ import {
   Text,
   Image,
   Stack,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { GITHUB, INSTAGRAM, DISCORD, EMAIL, RESUME, CHESS, LINKEDIN } from '@/constants'
@@ -56,6 +57,7 @@ function SocialMedia() {
         },
     ]
 
+    const isSmall = useBreakpointValue({ base: false, md: true })
     return (
       <Stack spacing={4} align="center" p={10} mt={'10px'}>
         <Image src="/favicon.ico" alt="Favicon" boxSize="70px" />
@@ -68,7 +70,7 @@ function SocialMedia() {
                   alt={`${social.name} icon`}
                   boxSize="40px"
                 />
-                <Text>{social.name}</Text>
+                {isSmall && (<Text>{social.name}</Text>)}
               </Stack>
             </Link>
           ))}
@@ -82,7 +84,7 @@ function SocialMedia() {
                   alt={`${social.name} icon`}
                   boxSize="40px"
                 />
-                <Text>{social.name}</Text>
+                {isSmall && (<Text>{social.name}</Text>)}
               </Stack>
             </Link>
           ))}

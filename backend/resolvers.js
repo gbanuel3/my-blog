@@ -45,7 +45,16 @@ const resolvers = {
         console.error(error)
         throw new Error('Error fetching highlighted projects.')
       }
-    }
+    },
+    getAllPosts: async () => {
+      try {
+        const { rows } = await pool.query('SELECT * FROM posts ORDER BY created_at DESC')
+        return rows
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching all posts.')
+      }
+    },
   },
   Post: {
     author: async (post) => {
