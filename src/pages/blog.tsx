@@ -76,13 +76,14 @@ const Blog = () => {
       bg={colors[colorMode].bg_color}
       color={colors[colorMode].text_color}
       p={5}
+      mt={"25px"}
     >
       <Flex justify="space-between" align="center" mb={5}>
         <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
           All Posts
         </Heading>
       </Flex>
-      <Heading as="h2" size={yearSize} color={colors[colorMode].header_text} mb={"10px"}>
+      <Heading as="h2" size={yearSize} color={colors[colorMode].header_text} mt={"50px"} mb={"25px"}>
           2024
         </Heading>
       <VStack spacing={0} align="stretch">

@@ -9,54 +9,159 @@ import {
   Container,
   Heading,
   useColorMode,
+  useBreakpointValue,
+  Flex,
+  Button,
+  Grid,
+  Skeleton,
 } from '@chakra-ui/react'
 import { colors } from '@/constants'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import { endpoint } from '@/constants'
+import Link from 'next/link'
+import { formatMonthYear } from '.'
 
-const ProjectsPage = () => {
+const Projects = () => {
   const { colorMode, toggleColorMode } = useColorMode()
-  const bgColor = useColorModeValue('gray.50', 'gray.900')
-  const textColor = useColorModeValue('gray.800', 'gray.100')
 
+  const [selectedProjects, setSelectedProjects] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const userId = 1
+
+  useEffect(() => {
+    async function fetchProjects() {
+      setIsLoading(true)
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `
+            query GetAllProjects {
+              getAllProjects {
+                id
+                releaseDate
+                name
+                description
+                sourceUrl
+                demoUrl
+                articleUrl
+                favoritesCount
+                author {
+                  id
+                  name
+                }
+                is_hightlighted
+              }
+            }
+          `,
+          }),
+        })
+
+        const { data } = await response.json()
+        setSelectedProjects(data.getAllProjects)
+        console.log(selectedProjects)
+      } catch (error) {
+        console.log('Error fetching projects', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [userId])
+
+
+  const textSize = useBreakpointValue({ base: 'lg', md: 'xl' })
+  const btnSize = useBreakpointValue({ base: 'lg', md: 'md' })
   return (
-    <>
-      <Head>
-        <title>Projects | Gil</title>
-      </Head>
-      <Container maxW="container.lg" p={4} bg={colors[colorMode].bg_color}>
-        <VStack spacing={8} alignItems="center" w="full">
-          <Heading as="h1" size="xl" mb={4}>
-            Projects
-          </Heading>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-            {[1, 2, 3, 4].map((project) => (
-              <Box
-                key={project}
+    <Box p={5} color="white" mt={'25px'}>
+      <Flex justify="space-between" align="center" mb={5}>
+        <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
+          All Projects
+        </Heading>
+      </Flex>
+      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={3}>
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                height="20px"
+                my="10px"
+                bg={colors[colorMode].bg_color}
+              />
+            ))
+          : selectedProjects.map((project: any, index: any) => (
+              <VStack
+                key={index}
                 p={5}
-                shadow="md"
-                borderWidth="1px"
-                bg={bgColor}
-                maxW="sm"
                 borderRadius="lg"
+                align="flex-start"
+                spacing={4}
+                boxShadow="lg"
+                bg={colors[colorMode].project_box_color}
+                width="100%"
               >
-                <Image
-                  borderRadius="lg"
-                  src={`https://via.placeholder.com/400x200?text=Project+${project}`}
-                  alt={`Project ${project}`}
-                />
-                <Text mt={2} fontSize="xl" color={textColor} fontWeight="semibold">
-                  Project {project}
+                <Text
+                  fontSize="lg"
+                  fontWeight="bold"
+                  color={colors[colorMode].project_year}
+                >
+                  {formatMonthYear(project?.releaseDate)}
                 </Text>
-                <Text mt={2} color={textColor}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                <Link href={project.sourceUrl} passHref key={project.id}>
+                  <Text
+                    fontSize="xl"
+                    fontWeight="bold"
+                    color={colors[colorMode].project_title}
+                    _hover={{ textDecoration: 'underline' }}
+                  >
+                    {project?.name}
+                  </Text>
+                </Link>
+                <Text
+                  fontSize="md"
+                  color={colors[colorMode].project_description}
+                  noOfLines={3}
+                  lineHeight={'tight'}
+                >
+                  {project?.description}
                 </Text>
-              </Box>
+                <Flex gap={'3px'} align={'center'}>
+                  <Button
+                    as={Link}
+                    href={`${project.sourceUrl}`}
+                    isDisabled={!project?.sourceUrl}
+                    colorScheme="gray"
+                    size={btnSize}
+                  >
+                    Source
+                  </Button>
+                  <Button
+                    as={Link}
+                    href={`/blog/${project.articleUrl}`}
+                    isDisabled={!project?.articleUrl}
+                    colorScheme="gray"
+                    size={btnSize}
+                  >
+                    Article
+                  </Button>
+                  <Button
+                    as={Link}
+                    href={`${project.demoUrl}`}
+                    isDisabled={!project?.demoUrl}
+                    colorScheme="gray"
+                    size={btnSize}
+                  >
+                    Demo
+                  </Button>
+                </Flex>
+              </VStack>
             ))}
-          </SimpleGrid>
-        </VStack>
-      </Container>
-    </>
+      </Grid>
+    </Box>
   )
 }
 
-export default ProjectsPage
+export default Projects

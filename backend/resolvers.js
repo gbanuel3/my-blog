@@ -27,7 +27,7 @@ const resolvers = {
     getHighlights: async () => {
       try {
         const { rows } = await pool.query(
-          'SELECT * FROM posts WHERE is_highlight = TRUE LIMIT 12',
+          'SELECT * FROM posts WHERE is_highlight = TRUE ORDER BY created_at LIMIT 12',
         )
         return rows
       } catch (error) {
@@ -38,7 +38,7 @@ const resolvers = {
     getHighlightedProjects: async () => {
       try {
         const { rows } = await pool.query(
-          'SELECT * FROM projects WHERE is_highlighted = TRUE LIMIT 6',
+          'SELECT * FROM projects WHERE is_highlighted = TRUE  ORDER BY "releaseDate" LIMIT 6',
         )
         return rows
       } catch (error) {
@@ -53,6 +53,15 @@ const resolvers = {
       } catch (error) {
         console.error(error)
         throw new Error('Error fetching all posts.')
+      }
+    },
+    getAllProjects: async () => {
+      try {
+        const { rows } = await pool.query('SELECT * FROM projects ORDER BY "releaseDate" DESC')
+        return rows
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching all projects.')
       }
     },
   },
