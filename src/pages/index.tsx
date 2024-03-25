@@ -172,7 +172,7 @@ function LatestPosts() {
                       transition: 'color 0.2s',
                     },
                     '&:hover .post-title': {
-                      color: colors[colorMode].header_text, // Ensure this color is defined
+                      color: colors[colorMode].header_text,
                       textDecoration: 'underline',
                     },
                   }}
@@ -276,8 +276,8 @@ function Highlights() {
         templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)' }}
         gap={4}
         color={colors[colorMode].grid_color}
-        alignItems="stretch" // Add this to stretch the items vertically
-        gridAutoRows="1fr" // This makes the rows have equal height
+        alignItems="stretch"
+        gridAutoRows="1fr"
       >
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
@@ -318,7 +318,7 @@ function Highlights() {
                     boxSize={{ base: '40px', md: '60px' }}
                     objectFit="cover"
                     alt="Photo Icon"
-                    ml={"3px"}
+                    ml={'3px'}
                   />
                   <VStack spacing={0} align="start">
                     <Text fontSize="sm" color={colors[colorMode].grid_date}>

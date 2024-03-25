@@ -45,3 +45,11 @@ export const endpoint =
   process.env.NODE_ENV === 'production'
     ? 'https://my-blog-wlw2esyewq-uc.a.run.app/graphql'
     : 'http://localhost:4000/graphql'
+
+export const GITHUB = 'https://github.com/gbanuel3'
+export const INSTAGRAM = 'https://www.instagram.com/gil_ban/'
+export const DISCORD = 'https://discordapp.com/users/gil7284/'
+export const EMAIL = 'gbanuel3@gmail.com'
+export const LINKEDIN = 'https://www.linkedin.com/in/gbanuelos/'
+export const RESUME = 'BanuelosGil.pdf'
+export const CHESS = 'https://www.chess.com/member/underzero17'
