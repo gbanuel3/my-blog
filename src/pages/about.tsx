@@ -1,54 +1,58 @@
-import React from 'react'
-import { Box, Container, Heading, Text, Image, VStack } from '@chakra-ui/react'
-import Head from 'next/head'
+import React from "react"
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  UnorderedList,
+  ListItem,
+  Link,
+  Image,
+} from "@chakra-ui/react"
 
 const About = () => {
   return (
-    <>
-      <Head>
-        <title>About | Gil</title>
-      </Head>
-      <Container maxW="container.lg" py={10}>
-        <VStack spacing={10} alignItems="center">
-          <Heading as="h1" size="2xl">
-            About Me
-          </Heading>
-          <Image
-            borderRadius="full"
-            boxSize="150px"
-            src="https://via.placeholder.com/150"
-            alt="Profile image"
-          />
-          <Text fontSize="lg">
-            Hey there! I&#39;m deeply passionate about the intersection of technology
-            and design, and I find immense joy in creating work that&#39;s not just
-            meaningful but truly impactful. My love for tech isn&#39;t just about the
-            gadgets and software; it&#39;s about how these tools can transform ideas
-            into tangible outcomes that resonate with people.
-          </Text>
-          <Text fontSize="lg">
-            When I step away from my code editor, you&#39;ll likely find me embracing
-            the great outdoors, whether that&#39;s a serene hike, a challenging rock
-            climb, or simply enjoying a quiet moment under the sky. But that&#39;s not
-            all - I&#39;m a huge fan of live music. There&#39;s something magical about
-            experiencing music in its raw, live form that just captivates me.
-          </Text>
-          <Text fontSize="lg">
-            I&#39;m also an avid reader, always on the lookout for the next book that
-            will broaden my horizons or deepen my understanding of the latest technology
-            trends. And when I&#39;m in the mood for a bit of strategic thinking, I love
-            to get lost in a good strategy game. It&#39;s a fantastic way to keep my
-            mind sharp and often provides a fresh perspective on problem-solving. Of
-            course, staying active is crucial to me, so running and rock climbing are my
-            go-tos for physical activity. They&#39;re not just hobbies; they&#39;re part
-            of my journey to maintain balance and well-being in a tech-driven world. And
-            yes, when the mood strikes, coding for fun is still one of my favorite
-            pastimes. There&#39;s always something new to learn, explore, and create in
-            the vast world of coding.
-          </Text>
-        </VStack>
-      </Container>
-    </>
+    <Container maxW="container.md" py={10}>
+      <Heading as="h1" mb={6}>
+        About Me
+      </Heading>
+      <Text fontSize="lg" mb={4}>
+        Hi there! I&#39;m Gildardo Banuelos, an enthusiast of all things technology. In December
+        2023, I completed my Computer Science degree at MIT, marking the end of an
+        educational journey filled with significant learning and hands-on experience.
+      </Text>
+      <Text fontSize="lg" mb={4}>
+        My time at MIT was complemented with internships at Meta, Morgan Stanley, and
+        Google. These experiences allowed me to hone my skills in software engineering,
+        work with incredible mentors, and contribute to impactful projects.
+      </Text>
+      <Text fontSize="lg" mb={4}>
+        When I&#39;m not diving into code, you can find me working on new chess strategies,
+        playing poker with friends, or experimenting with new technical development
+        projects. I&#39;m also an avid runner, lifter, and rock climber, activities that keep my
+        energy levels high and my focus sharp.
+      </Text>
+      <Text fontSize="lg" mb={4}>
+        I&#39;ve created this space to share my thoughts, experiences, and projects with the world.
+        Maybe I&#39;ll inspire someone else to do the same. If you have any questions or comments, feel 
+        free to contact me via email or any of my social media profiles. 
+      </Text>
+
+      <Heading as="h2" size="lg" mt={10} mb={4}>
+        Publications
+      </Heading>
+      <UnorderedList>
+        <ListItem>
+          <Link
+            href="https://courses.csail.mit.edu/6.857/2022/projects/Dave-Johnson-Banuelos-Seeyave.pdf"
+            isExternal
+            color="blue.500"
+          >
+            Flood and Loot Attack - Lightning Network
+          </Link>
+        </ListItem>
+      </UnorderedList>
+    </Container>
   )
 }
 
