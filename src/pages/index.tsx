@@ -379,7 +379,6 @@ function Projects() {
         })
 
         const { data } = await response.json()
-        console.log(data)
         setSelectedProjects(data.getHighlightedProjects)
       } catch (error) {
         console.log('Error fetching projects', error)

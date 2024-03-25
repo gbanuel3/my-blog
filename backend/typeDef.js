@@ -6,6 +6,7 @@ type Query {
   getHighlights: [Post]
   getHighlightedProjects: [Project]
   getAllPosts: [Post]
+  getAllProjects: [Project]
 }
 
 type User {
