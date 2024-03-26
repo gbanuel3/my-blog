@@ -5,6 +5,7 @@ import Theme from '@/styles/theme'
 import NavigationBar from '@/components/navigation_bar'
 import SocialMedia from '@/components/social_media'
 import React from 'react'
+import DefaultMetaTags from '@/components/DefaultMetaTags'
 
 function MyApp({
   Component,
@@ -16,6 +17,7 @@ function MyApp({
   return (
     <React.StrictMode>
         <ChakraProvider theme={Theme}>
+          <DefaultMetaTags />
           <ColorModeScript initialColorMode={Theme.config.initialColorMode} />
           <GlobalStyle />
           <Container maxW="800px">
