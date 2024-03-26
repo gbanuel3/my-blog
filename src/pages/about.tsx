@@ -35,7 +35,7 @@ const About = () => {
       <Text fontSize="lg" mb={4}>
         I&#39;ve created this space to share my thoughts, experiences, and projects with the world.
         Maybe I&#39;ll inspire someone else to do the same. If you have any questions or comments, feel 
-        free to contact me via email or any of my social media profiles. 
+        free to contact me via email or via any of my social media profiles. 
       </Text>
 
       <Heading as="h2" size="lg" mt={10} mb={4}>

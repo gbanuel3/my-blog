@@ -64,6 +64,15 @@ const resolvers = {
         throw new Error('Error fetching all projects.')
       }
     },
+    getBlogFromSlug: async (_, { slug }) => {
+      try {
+        const { rows } = await pool.query('SELECT * FROM posts WHERE slug = $1', [slug])
+        return rows[0]
+      } catch (error) {
+        console.error(error)
+        throw new Error('Error fetching post by slug.')
+      }
+    },
   },
   Post: {
     author: async (post) => {
