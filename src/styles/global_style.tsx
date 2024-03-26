@@ -13,17 +13,14 @@ const GlobalStyle = () => {
           margin: 0;
           padding: 0;
         }
-        .blog-content h1 {
-          font-size: 2rem;
-          font-weight: bold;
-        }
         
         .blog-content p {
-          font-size: 1rem;
+          font-size: 1.1rem;
+          font-weight: 400;
           margin: 1em 0;
         }
         .blog-content h1 {
-          font-size: 2rem;
+          font-size: 2.2rem;
           font-weight: bold;
           margin-bottom: 0.5em;
         }
@@ -52,23 +49,25 @@ const GlobalStyle = () => {
           font-weight: bold;
           margin-bottom: 0.5em;
         }
-        .blog-content p {
-          font-size: 1rem;
-          margin-bottom: 1em;
-        }
         .blog-content a {
           color: ${colors[colorMode].link_color};
           text-decoration: underline;
         }
         .blog-content ul {
+          font-size: 1.1rem;
+          font-weight: 400;
           padding-left: 20px;
           margin-bottom: 1em;
         }
         .blog-content ol {
+          font-size: 1.1rem;
+          font-weight: 400;
           padding-left: 20px;
           margin-bottom: 1em;
         }
         .blog-content li {
+          font-size: 1.1rem;
+          font-weight: 400;
           margin-bottom: 0.5em;
         }
         .blog-content blockquote {
