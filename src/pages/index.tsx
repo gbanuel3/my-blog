@@ -139,7 +139,7 @@ function LatestPosts() {
     >
       <Flex justify="space-between" align="center" mb={5}>
         <Heading as="h1" size={textSize} color={colors[colorMode].header_text}>
-          Latest Posts
+          Latest Blogs
         </Heading>
         <Button as={Link} href="/blog" colorScheme="gray">
           View all

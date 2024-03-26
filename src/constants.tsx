@@ -18,6 +18,15 @@ export const colors = {
     project_year: "#9f9f9f",
     project_title: "#202020",
     project_description: "#888888",
+    link_color: 'blue.500',
+  
+    blockquote_border_color: '#ddd',
+    blockquote_bg_color: '#f9f9f9',
+    code_bg_color: '#f5f5f5',
+    pre_bg_color: '#f5f5f5',
+    hr_color: '#ccc',
+    table_border_color: '#ddd',
+
   },
   dark: {
     transparent: 'transparent',
@@ -38,6 +47,15 @@ export const colors = {
     project_year: "white",
     project_title: "white",
     project_description: "gray.300",
+    link_color: 'blue.500',
+
+    blockquote_border_color: '#4a5568',
+    blockquote_bg_color: '#2d3748',
+    code_bg_color: '#2d3748',
+    pre_bg_color: '#2d3748',
+    hr_color: '#718096',
+    table_border_color: '#4a5568',
+
   },
 }
 

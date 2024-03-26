@@ -10,6 +10,7 @@ import {
   MenuList,
   MenuItem,
   Button,
+  Image,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { colors } from '@/constants'
@@ -20,15 +21,6 @@ import { useRouter } from 'next/router'
 import { Url } from 'next/dist/shared/lib/router/router'
 import DropdownMenuItem from './dropdown_menu_item'
 import { GITHUB } from '@/constants'
-
-function getRouteItem(url: string) {
-  const defaultItem = {
-    icon: <FaHome />,
-    label: 'Not Found',
-  }
-
-  return routerMap[url] || defaultItem
-}
 
 const navItems = [
   {
@@ -63,11 +55,22 @@ const navItems = [
   },
 ]
 
+function getRouteItem(url: string) {
+  const defaultItem = {
+    icon: <FaHome />,
+    label: 'Not Found',
+  }
+  if (url.includes('/blog/')) {
+    return routerMap['/blog']
+  }
+  return routerMap[url] || defaultItem
+}
+
 const routerMap: any = {
-  '/': { icon: <FaHome />, label: 'Home' },
-  '/about': { icon: <FaUser />, label: 'About' },
-  '/blog': { icon: <FaPen />, label: 'Blog' },
-  '/projects': { icon: <FaProjectDiagram />, label: 'Projects' },
+  '/': { icon: navItems[0].icon, label: 'Home' },
+  '/about': { icon: navItems[1].icon, label: 'About' },
+  '/blog': { icon: navItems[2].icon, label: 'Blog' },
+  '/projects': { icon: navItems[3].icon, label: 'Projects' },
 }
 
 function NavigationBar() {
@@ -108,7 +111,13 @@ function NavigationBar() {
     >
       {isMobile ? (
         <Menu>
-          <MenuButton as={Button} leftIcon={selectedItem.icon} variant="outline">
+          <MenuButton
+            as={Button}
+            leftIcon={
+              <Image src={selectedItem.icon} width="30px" height="30px" alt={'icon'} />
+            }
+            variant="outline"
+          >
             {selectedItem.label}
           </MenuButton>
           <MenuList bg={colors[colorMode].bg_color}>

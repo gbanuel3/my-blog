@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "backend/resolvers.js", "backend/schema.js", "backend/db.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "backend/resolvers.js", "backend/schema.js", "backend/db.js", "src/pages/blog/slug.js"],
   "exclude": ["node_modules"]
 }

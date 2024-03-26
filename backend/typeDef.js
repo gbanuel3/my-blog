@@ -7,6 +7,7 @@ type Query {
   getHighlightedProjects: [Project]
   getAllPosts: [Post]
   getAllProjects: [Project]
+  getBlogFromSlug(slug: String!): Post
 }
 
 type User {
@@ -24,6 +25,7 @@ type Post {
   updated_at: String
   is_highlight: Boolean
   icon: String
+  slug: String
 }
 
 type Project {
